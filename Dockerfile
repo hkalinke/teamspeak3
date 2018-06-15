@@ -2,7 +2,7 @@
 FROM ubuntu:16.04
 
 # installing version
-ENV TS3_VERSION 3.0.13.8
+ENV TS3_VERSION 3.2.0
 
 # install TS3
 RUN apt-get update -q \
