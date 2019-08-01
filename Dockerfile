@@ -2,14 +2,14 @@
 FROM ubuntu:16.04
 
 # installing version
-ENV TS3_VERSION 3.3.0
+ENV TS3_VERSION 3.9.1
 
 # install TS3
 RUN apt-get update -q \
 	&& DEBIAN_FRONTEND=noninteractive apt-get install -qy bzip2 wget nmap \
 	&& useradd -u 1000 teamspeak \
 	&& mkdir -p /home/teamspeak \
-	&& wget -q -O /home/teamspeak/ts3server.tar.bz2 http://dl.4players.de/ts/releases/$TS3_VERSION/teamspeak3-server_linux_amd64-$TS3_VERSION.tar.bz2 \
+	&& wget -q -O /home/teamspeak/ts3server.tar.bz2 https://files.teamspeak-services.com/releases/server/$TS3_VERSION/teamspeak3-server_linux_amd64-$TS3_VERSION.tar.bz2 \
 	&& tar --directory home/teamspeak -xjf /home/teamspeak/ts3server.tar.bz2 \
 	&& rm /home/teamspeak/ts3server.tar.bz2 \
 	&& mkdir -p /home/teamspeak/data/logs \
@@ -17,7 +17,8 @@ RUN apt-get update -q \
 	&& mv /home/teamspeak/teamspeak3-server_linux_amd64 /home/teamspeak/ts3server \
 	&& ln -s /home/teamspeak/data/ts3server.sqlitedb /home/teamspeak/ts3server/ts3server.sqlitedb \
 	&& chown -R teamspeak /home/teamspeak \
-	&& rm -rf /var/lib/apt/lists/*
+	&& rm -rf /var/lib/apt/lists/* \
+	&& touch /home/teamspeak/ts3server/.ts3server_license_accepted
 	
 # execute as teamspeak user
 USER teamspeak
